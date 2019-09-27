@@ -19,7 +19,7 @@ export default Component.extend({
   }),
 
   safeValue: computed("value", function() {
-    return htmlSafe(this.get("value"));
+    return htmlSafe(this.getWithDefault("value", "\n"));
   }),
 
   fastboot: computed(function() {
@@ -27,7 +27,7 @@ export default Component.extend({
   }),
 
   didInsertElement() {
-    // Don't instantiate Quill if fastboot is detected
+    // Don"t instantiate Quill if fastboot is detected
     if (this.get("fastboot.isFastBoot")) {
       return;
     }
@@ -53,5 +53,15 @@ export default Component.extend({
     });
 
     this.set("editor", editor);
+  },
+
+  didReceiveAttrs() {
+    if (this.get("editor")) {
+      console.log(this.editor)
+      console.log(this.value)
+      if (this.editor.root.innerHTML !== this.value) {
+        this.get("editor").setText(this.value || "\n");
+      }
+    }
   }
 });

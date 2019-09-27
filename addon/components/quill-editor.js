@@ -57,8 +57,7 @@ export default Component.extend({
 
   didReceiveAttrs() {
     if (this.get("editor")) {
-      console.log(this.editor)
-      console.log(this.value)
+)      console.log(this.value)
       if (this.editor.root.innerHTML !== this.value) {
         this.get("editor").setText(this.value || "\n");
       }

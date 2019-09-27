@@ -55,11 +55,13 @@ export default Component.extend({
     this.set("editor", editor);
   },
 
-  didReceiveAttrs() {
+  didUpdateAttrs() {
+    // This is needed in circumstances likes forms where the value
+    // may get reset to null and the editor isn't destroyed
+    // because the component isn't torn down
     if (this.get("editor")) {
-)      console.log(this.value)
       if (this.editor.root.innerHTML !== this.value) {
-        this.get("editor").setText(this.value || "\n");
+        this.get("editor").setText(this.value || "\n", "silent");
       }
     }
   }
